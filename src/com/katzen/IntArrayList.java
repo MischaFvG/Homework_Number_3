@@ -33,6 +33,7 @@ public class IntArrayList implements IntList {
             newArray[i] = array[i - 1];
         }
         array = newArray;
+        count++;
     }
 
     @Override
@@ -69,11 +70,15 @@ public class IntArrayList implements IntList {
 
     @Override
     public void remove(int index) {
-        for (int i = index; i < count; i++) {
-            array[i] = array[i + 1];
-            array[count] = 0;
-            count--;
+        int[] newArray = new int[array.length * NUMBER_1 / NUMBER_2 + 1];
+        for (int i = 0; i < index; i++) {
+            newArray[i] = array[i];
         }
+        for (int i = index; i < count; i++) {
+            newArray[i] = array[i + 1];
+        }
+        array = newArray;
+        count--;
     }
 
     @Override
