@@ -22,18 +22,33 @@ public class IntArrayList implements IntList {
 
     @Override
     public void add(int index, int value) {
-        int[] newArray = new int[array.length * NUMBER_1 / NUMBER_2 + 1];
-        for (int i = 0; i < index; i++) {
-            newArray[i] = array[i];
+        if (count == array.length - 1) {
+            int[] newArray = new int[array.length * NUMBER_1 / NUMBER_2 + 1];
+            for (int i = 0; i < index; i++) {
+                newArray[i] = array[i];
+            }
+            for (int i = index; i < index + 1; i++) {
+                newArray[i] = value;
+            }
+            for (int i = index + 1; i < array.length; i++) {
+                newArray[i] = array[i - 1];
+            }
+            array = newArray;
+            count++;
+        } else {
+            int[] newArray = new int[array.length];
+            for (int i = 0; i < index; i++) {
+                newArray[i] = array[i];
+            }
+            for (int i = index; i < index + 1; i++) {
+                newArray[i] = value;
+            }
+            for (int i = index + 1; i < array.length; i++) {
+                newArray[i] = array[i - 1];
+            }
+            array = newArray;
+            count++;
         }
-        for (int i = index; i < index + 1; i++) {
-            newArray[i] = value;
-        }
-        for (int i = index + 1; i < array.length; i++) {
-            newArray[i] = array[i - 1];
-        }
-        array = newArray;
-        count++;
     }
 
     @Override
@@ -70,7 +85,7 @@ public class IntArrayList implements IntList {
 
     @Override
     public void remove(int index) {
-        int[] newArray = new int[array.length * NUMBER_1 / NUMBER_2 + 1];
+        int[] newArray = new int[array.length];
         for (int i = 0; i < index; i++) {
             newArray[i] = array[i];
         }
@@ -100,9 +115,10 @@ public class IntArrayList implements IntList {
 
     @Override
     public String toString() {
-        return "IntArrayList{" +
-                "array=" + Arrays.toString(array) +
-                '}';
+        for (int i = 0; i < count; i++) {
+            System.out.print("[" + array[i] + "]");
+        }
+        return "";
     }
 
     private void createNewArray(int newArrayLength) {
